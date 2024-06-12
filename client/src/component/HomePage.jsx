@@ -36,12 +36,7 @@ function HomePage() {
       <section className="displaySearch">
         {trips.map((trip) => (
           <div className="tripCard" key={trip.eid}>
-            <img
-              className="mainImage"
-              src={trip.photos[0]}
-              width={240}
-              height={160}
-            />
+            <img className="mainImage" src={trip.photos[0]} />
             <div className="tripInfo">
               <h4>
                 <a className="title" href={trip.url} target="_blank">
@@ -60,7 +55,7 @@ function HomePage() {
                   <span
                     className="tag"
                     key={index}
-                    onClick={(event) => {
+                    onClick={() => {
                       setInputText((inputText + " " + tag).trim());
                     }}
                   >
@@ -68,12 +63,24 @@ function HomePage() {
                   </span>
                 ))}
               </p>
-              <div className="otherImage">
+              <div className="otherImageContainer">
                 {trip.photos.slice(1).map((url, index) => (
-                  <img key={index} src={url} width={50} height={50} />
+                  <img className="otherImage" key={index} src={url} />
                 ))}
               </div>
             </div>
+            <img
+              className="copyIcon"
+              src="/icons-copy-link.png"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(trip.url);
+                  alert(`copy URL: ${trip.url}`);
+                } catch (error) {
+                  alert("Don't have URL");
+                }
+              }}
+            />
           </div>
         ))}
       </section>
