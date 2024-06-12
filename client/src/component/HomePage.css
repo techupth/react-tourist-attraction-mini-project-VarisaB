@@ -61,6 +61,13 @@ h4 {
   font-weight: 500;
 }
 
+.title:link,
+.title:visited,
+.title:active {
+  text-decoration: none;
+  color: black;
+}
+
 .moreDetail {
   font-size: small;
   color: var(--header-color);
@@ -76,4 +83,5 @@ h4 {
 .tag {
   margin-left: 5px;
   text-decoration: underline;
+  cursor: pointer;
 }

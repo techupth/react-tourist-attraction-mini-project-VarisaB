@@ -7,7 +7,7 @@ function HomePage() {
   const [inputText, setInputText] = useState("");
 
   async function getTrips(searchText) {
-    console.log(searchText);
+    // console.log(searchText);
     const response = await axios.get(
       `http://localhost:4001/trips?keywords=${searchText}`
     );
@@ -43,7 +43,11 @@ function HomePage() {
               height={160}
             />
             <div className="tripInfo">
-              <h4>{trip.title}</h4>
+              <h4>
+                <a className="title" href={trip.url} target="_blank">
+                  {trip.title}
+                </a>
+              </h4>
               <p className="tripDescription">
                 {trip.description.slice(0, 100)}...
               </p>
@@ -57,8 +61,7 @@ function HomePage() {
                     className="tag"
                     key={index}
                     onClick={(event) => {
-                      event.preventDefault();
-                      setInputText(inputText + " " + tag);
+                      setInputText((inputText + " " + tag).trim());
                     }}
                   >
                     {tag}
