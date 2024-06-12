@@ -7,17 +7,24 @@ function HomePage() {
   const [inputText, setInputText] = useState("");
 
   async function getTrips(searchText) {
-    // console.log(searchText);
     const response = await axios.get(
       `http://localhost:4001/trips?keywords=${searchText}`
     );
-    // console.log(response);
     setTrips(response.data.data);
   }
 
   useEffect(() => {
     getTrips(inputText);
   }, [inputText]);
+
+  async function handleCopyLink(url) {
+    if (url) {
+      await navigator.clipboard.writeText(url);
+      alert(`copy URL: ${url}`);
+    } else {
+      alert("Don't have URL");
+    }
+  }
 
   return (
     <div className="wholePage">
@@ -72,14 +79,7 @@ function HomePage() {
             <img
               className="copyIcon"
               src="/icons-copy-link.png"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(trip.url);
-                  alert(`copy URL: ${trip.url}`);
-                } catch (error) {
-                  alert("Don't have URL");
-                }
-              }}
+              onClick={() => handleCopyLink(trip.url)}
             />
           </div>
         ))}
